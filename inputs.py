@@ -27,3 +27,7 @@ class InputManager:
     def click(self, x=None, y=None, clicks=1, interval=0.0, button=PRIMARY):
         self.__input_if_valid(lambda: pyautogui.click(
             x, y, clicks=clicks, interval=interval, button=button))
+
+    def typewrite(self, message, interval=0.0):
+        self.__input_if_valid(lambda: pyautogui.typewrite(
+            message, interval=interval))

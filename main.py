@@ -1,7 +1,9 @@
 import osmac
+import random
 import time
 import threading
 import humanize
+import chat
 from inputs import InputManager
 # skull data
 
@@ -104,7 +106,29 @@ class HealManager:
         self.start()
 
 
+class ChatManager:
+    """
+    chat manager
+
+    trigger chat every n seconds
+    """
+
+    def __init__(self, interval=120.0):
+        self.interval = interval
+        self.chat_client = chat.ChatClient(input)
+
+    def start(self):
+        threading.Timer(self.interval, self.update).start()
+
+    def update(self):
+        print('chat queued by ChatManager#update')
+        # pick random script from chat.hard_scripts
+        self.chat_client.chat(random.choice(chat.hard_scripts))
+        self.start()
+
+
 if __name__ == '__main__':
     time.sleep(3)
     SkillUpManager().start()
     HealManager().start()
+    # ChatManager().start()
