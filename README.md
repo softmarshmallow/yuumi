@@ -1,3 +1,5 @@
+![Yuumi](./readme/cover.jpg)
+
 # yumi
 
 League of legends Yuumi bot
