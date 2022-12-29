@@ -39,7 +39,7 @@ def skill_up_all():
     skill_priority = ['r', 'e', 'w', 'q']
     for skill in skill_priority:
         skill_up(skill)
-        time.sleep(0.5)
+        time.sleep(1)
 
 
 def skill_q_up():
@@ -63,11 +63,13 @@ def start_skill(skill):
 
 
 def move_commit(pos):
-    # right click
-    input.click(pos[0], pos[1], button='right')
-
-
-#
+    # move to pos
+    input.moveTo(pos[0], pos[1], duration=humanize.seconds(0.3))
+    # randomize times to click between 1 and 3 times
+    for i in range(random.randint(1, 3)):
+        # right click
+        time.sleep(humanize.seconds(0.1))
+        input.click(pos[0], pos[1], button='right')
 
 
 class SkillUpManager:
@@ -96,11 +98,12 @@ class HealManager:
     trigger heal every n seconds
     """
 
-    def __init__(self, interval=17.0):
+    def __init__(self, interval=13.0):
         self.interval = interval
 
     def start(self):
-        threading.Timer(self.interval, self.update).start()
+        sec = humanize.seconds(self.interval)
+        threading.Timer(sec, self.update).start()
 
     def update(self):
         print('heal queued by HealManager#update')
@@ -137,7 +140,7 @@ class MovementManager:
     trigger movement every n seconds
     """
 
-    def __init__(self, interval=1.0):
+    def __init__(self, interval=2.0):
         self.center = pyautogui.position()
         self.interval = interval
         self.unit = 100
@@ -153,10 +156,10 @@ class MovementManager:
         ]
 
     def start(self):
-        threading.Timer(self.interval, self.update).start()
+        sec = humanize.seconds(self.interval)
+        threading.Timer(sec, self.update).start()
 
     def update(self):
-        print('movement queued by MovementManager#update')
         # pick random movement from self.movements
         relpos = (random.choice(self.movements))
         rx = humanize.pixels(self.unit)
@@ -170,8 +173,13 @@ class MovementManager:
 
 
 if __name__ == '__main__':
-    time.sleep(3)
     SkillUpManager().start()
     HealManager().start()
-    # ChatManager().start()
-    # MovementManager().start()
+
+    #
+    time.sleep(90)
+    MovementManager().start()
+
+    #
+    time.sleep(3)
+    ChatManager().start()

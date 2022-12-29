@@ -28,6 +28,18 @@ class InputManager:
         self.__input_if_valid(lambda: pyautogui.click(
             x, y, clicks=clicks, interval=interval, button=button))
 
+    def doubleClick(self, x=None, y=None, interval=0.0, button=PRIMARY):
+        self.__input_if_valid(lambda: pyautogui.doubleClick(
+            x, y, interval=interval, button=button))
+
+    def move(self, x, y, duration=0.0, tween=pyautogui.linear):
+        self.__input_if_valid(lambda: pyautogui.move(
+            x, y, duration=duration, tween=tween))
+
+    def moveTo(self, x, y, duration=0.0, tween=pyautogui.linear):
+        self.__input_if_valid(lambda: pyautogui.moveTo(
+            x, y, duration=duration, tween=tween))
+
     def typewrite(self, message, interval=0.0):
         self.__input_if_valid(lambda: pyautogui.typewrite(
             message, interval=interval))
