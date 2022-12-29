@@ -22,3 +22,25 @@ def seconds(sec):
         return abs(sec + random.uniform(-3, 3))
     else:
         return abs(sec + random.uniform(-5, 5))
+
+
+def pixels(size):
+    """
+    randomize pixels for human-like behavior for automated scheduled inputs
+    """
+    # scale ranges
+    # 0-10 (+- 0~5)
+    # 10-100 (+- 0~25)
+    # 100-500 (+- 0~100)
+    # 500-1000 (+- 0~200)
+    # 1000 ~ (+- 0~500)
+    if size < 10:
+        return abs(size + random.uniform(-5, 5))
+    elif size < 100:
+        return abs(size + random.uniform(-25, 25))
+    elif size < 500:
+        return abs(size + random.uniform(-100, 100))
+    elif size < 1000:
+        return abs(size + random.uniform(-200, 200))
+    else:
+        return abs(size + random.uniform(-500, 500))

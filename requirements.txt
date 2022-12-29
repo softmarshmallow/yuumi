@@ -1,2 +1,4 @@
 pyautogui
 pyscreenshot
+screeninfo
+appscript
