@@ -82,8 +82,9 @@ class SkillUpManager:
     def __init__(self, interval=45.0):
         self.interval = interval
 
-    def start(self):
-        threading.Timer(self.interval, self.update).start()
+    def start(self, interval=None):
+        sec = humanize.seconds(interval or self.interval)
+        threading.Timer(sec, self.update).start()
 
     def update(self):
         print('skill up queued by SkillUpManager#update')
@@ -98,11 +99,11 @@ class HealManager:
     trigger heal every n seconds
     """
 
-    def __init__(self, interval=13.0):
+    def __init__(self, interval=14.0):
         self.interval = interval
 
-    def start(self):
-        sec = humanize.seconds(self.interval)
+    def start(self, interval=None):
+        sec = humanize.seconds(interval or self.interval)
         threading.Timer(sec, self.update).start()
 
     def update(self):
